@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Employee {
+  id           String        @id @default(cuid())
+  name         String
+  email        String        @unique
+  department   String
+  createdAt    DateTime      @default(now())
+  enrollments  Enrollment[]
+  deductions   Deduction[]
+}
+
+model Enrollment {
+  id            String    @id @default(cuid())
+  employeeId    String
+  employee      Employee  @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  monthlyAmount Float
+  active        Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+}
+
+model PayrollRun {
+  id           String      @id @default(cuid())
+  label        String
+  status       String
+  createdAt    DateTime    @default(now())
+  finalizedAt  DateTime?
+  deductions   Deduction[]
+}
+
+model Deduction {
+  id           String     @id @default(cuid())
+  payrollRunId String
+  payrollRun   PayrollRun @relation(fields: [payrollRunId], references: [id], onDelete: Cascade)
+  employeeId   String
+  employee     Employee   @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  amount       Float
+
+  @@unique([payrollRunId, employeeId])
+}
+
+model AuditBlock {
+  id        String   @id @default(cuid())
+  index     Int      @unique
+  prevHash  String
+  hash      String
+  payload   String
+  createdAt DateTime @default(now())
+}

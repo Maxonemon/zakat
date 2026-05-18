@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workplace Zakat Platform | Presentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Geist', sans-serif;
+            background-color: #FBFBFA;
+            color: #111111;
+            overflow: hidden; /* Prevent scrolling, handle via JS */
+        }
+        
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            transform: translateX(20px);
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem 10vw;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: auto;
+            z-index: 10;
+        }
+
+        .slide.previous {
+            transform: translateX(-20px);
+        }
+
+        /* Minimalist premium styling */
+        h1, h2 { letter-spacing: -0.02em; }
+        .accent-box { border-left: 3px solid #111111; padding-left: 1.5rem; }
+        
+        /* Controls */
+        .controls {
+            position: fixed;
+            bottom: 2rem;
+            right: 3rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            z-index: 50;
+        }
+
+        .btn-nav {
+            background: #ffffff;
+            border: 1px solid #EAEAEA;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: #111111;
+            color: #ffffff;
+            transform: scale(1.05);
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .slide-counter {
+            font-variant-numeric: tabular-nums;
+            font-weight: 500;
+            color: #787774;
+            font-size: 0.9rem;
+            min-width: 3rem;
+            text-align: center;
+        }
+
+        /* Keyboard hint */
+        .hint {
+            position: fixed;
+            bottom: 2rem;
+            left: 3rem;
+            font-size: 0.8rem;
+            color: #787774;
+            z-index: 50;
+        }
+        kbd {
+            background: #EAEAEA;
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Slide 1: Title -->
+    <div class="slide active" id="slide-1">
+        <p class="text-sm font-semibold uppercase tracking-widest text-[#787774] mb-4">Final Project Presentation</p>
+        <h1 class="text-6xl font-semibold mb-6 leading-tight">Workplace Zakat<br>Platform</h1>
+        <p class="text-2xl text-[#787774] max-w-3xl leading-relaxed">
+            Bridging Web2 Corporate HR systems with Web3 Cryptographic Verification for secure, auditable Zakat payroll deductions.
+        </p>
+    </div>
+
+    <!-- Slide 2: The Problem -->
+    <div class="slide" id="slide-2">
+        <p class="text-sm font-semibold uppercase tracking-widest text-[#787774] mb-4">1. The Problem</p>
+        <h2 class="text-5xl font-semibold mb-10">The Corporate "Trust Deficit"</h2>
+        <div class="grid grid-cols-2 gap-12 max-w-5xl">
+            <div class="accent-box">
+                <h3 class="text-xl font-medium mb-3">No Automation</h3>
+                <p class="text-lg text-[#787774] leading-relaxed">Employees handle complex Zakat calculations manually. HR systems lack native religious giving modules.</p>
+            </div>
+            <div class="accent-box border-l-[#9F2F2D]">
+                <h3 class="text-xl font-medium mb-3">Blind Trust</h3>
+                <p class="text-lg text-[#787774] leading-relaxed">If HR does handle deductions, employees must blindly trust internal, easily-altered databases. There is no mathematical proof of integrity.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3: The Solution -->
+    <div class="slide" id="slide-3">
+        <p class="text-sm font-semibold uppercase tracking-widest text-[#787774] mb-4">2. The Solution</p>
+        <h2 class="text-5xl font-semibold mb-8">Immutable Audit Trails</h2>
+        <p class="text-xl text-[#787774] max-w-4xl leading-relaxed mb-10">
+            A hybrid application where <strong>HR manages payroll in Web2</strong>, but <strong>finalizes records in Web3</strong>.
+        </p>
+        <div class="flex flex-col gap-6 max-w-4xl">
+            <div class="bg-white p-6 rounded-xl border border-[#EAEAEA] flex items-center gap-6">
+                <div class="w-12 h-12 rounded-full bg-[#E1F3FE] flex items-center justify-center text-xl">👤</div>
+                <div>
+                    <h4 class="font-medium text-lg">Employee Experience</h4>
+                    <p class="text-[#787774]">Clean, read-only receipt portal. No crypto knowledge required.</p>
+                </div>
+            </div>
+            <div class="bg-white p-6 rounded-xl border border-[#EAEAEA] flex items-center gap-6">
+                <div class="w-12 h-12 rounded-full bg-[#EDF3EC] flex items-center justify-center text-xl">🛡️</div>
+                <div>
+                    <h4 class="font-medium text-lg">HR Administration</h4>
+                    <p class="text-[#787774]">Uses MetaMask to digitally sign and lock the payroll record on the blockchain.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 4: Data Architecture -->
+    <div class="slide" id="slide-4">
+        <p class="text-sm font-semibold uppercase tracking-widest text-[#787774] mb-4">3. Data Architecture</p>
+        <h2 class="text-5xl font-semibold mb-8">What goes on-chain?</h2>
+        <div class="grid grid-cols-2 gap-8 max-w-5xl">
+            <div class="bg-white p-8 rounded-xl border border-[#EAEAEA]">
+                <h3 class="text-2xl font-medium mb-4">Off-Chain (PostgreSQL)</h3>
+                <ul class="space-y-3 text-lg text-[#787774]">
+                    <li>• Employee Names</li>
+                    <li>• Email Addresses</li>
+                    <li>• Exact Salary / Deduction Amounts</li>
+                    <li class="mt-4 pt-4 border-t border-[#EAEAEA] text-sm text-[#111111]"><strong>Why?</strong> Privacy compliance & zero gas fees for heavy data.</li>
+                </ul>
+            </div>
+            <div class="bg-[#111111] text-white p-8 rounded-xl border border-[#EAEAEA]">
+                <h3 class="text-2xl font-medium mb-4">On-Chain (Sepolia)</h3>
+                <ul class="space-y-3 text-lg text-[#787774]">
+                    <li>• Cryptographic Hash of the Payload</li>
+                    <li>• Previous Block Hash (Chain Link)</li>
+                    <li>• HR Admin's Digital Signature</li>
+                    <li class="mt-4 pt-4 border-t border-[#333333] text-sm text-white"><strong>Why?</strong> Mathematical proof the data was never altered.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5: The Smart Contract -->
+    <div class="slide" id="slide-5">
+        <p class="text-sm font-semibold uppercase tracking-widest text-[#787774] mb-4">4. The Smart Contract</p>
+        <h2 class="text-5xl font-semibold mb-8">ZakatAuditLog.sol</h2>
+        <div class="bg-[#F7F6F3] p-8 rounded-xl border border-[#EAEAEA] max-w-4xl font-mono text-sm leading-relaxed overflow-x-auto">
+<pre><code>contract ZakatAuditLog {
+    struct AuditBlock {
+        uint64 index;
+        bytes32 prevHash; // Links to previous record
+        bytes32 blockHash;
+        bytes payload;
+    }
+    
+    // Security: Only authorized HR wallet can write
+    modifier onlyRegistrar() {
+        if (msg.sender != registrar) revert Unauthorized();
+        _;
+    }
+
+    function append(bytes32 prevHash, bytes calldata payload) ...
+}</code></pre>
+        </div>
+    </div>
+
+    <!-- Slide 6: MetaMask Integration -->
+    <div class="slide" id="slide-6">
+        <p class="text-sm font-semibold uppercase tracking-widest text-[#787774] mb-4">5. Web3 Integration</p>
+        <h2 class="text-5xl font-semibold mb-8">MetaMask as a Digital Notary</h2>
+        <div class="max-w-4xl">
+            <p class="text-xl text-[#787774] leading-relaxed mb-8">
+                In this application, <strong>no money moves on the blockchain.</strong> The actual fiat transfer happens via standard banking. 
+            </p>
+            <div class="accent-box border-l-[#346538]">
+                <h3 class="text-2xl font-medium mb-3">Why use MetaMask then?</h3>
+                <p class="text-lg text-[#787774] leading-relaxed">
+                    MetaMask acts as the HR Admin's secure ID. It is used to authorize the payment of Sepolia network gas fees and to mathematically sign the transaction, proving that the official corporate wallet authorized the payroll log on that exact date.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 7: Conclusion -->
+    <div class="slide" id="slide-7">
+        <p class="text-sm font-semibold uppercase tracking-widest text-[#787774] mb-4">6. Conclusion</p>
+        <h2 class="text-5xl font-semibold mb-8">Looking Forward</h2>
+        <div class="grid grid-cols-2 gap-12 max-w-5xl">
+            <div>
+                <h3 class="text-2xl font-medium mb-4">Current State</h3>
+                <p class="text-lg text-[#787774] leading-relaxed">A fully functioning, highly secure <strong>Auditing Platform</strong> utilizing Ethereum as an immutable notary for corporate Zakat records.</p>
+            </div>
+            <div>
+                <h3 class="text-2xl font-medium mb-4">Future Scope</h3>
+                <p class="text-lg text-[#787774] leading-relaxed">Integration of a custom <strong>ERC-20 Stablecoin (ZakatUSD)</strong>. Finalizing payroll would automatically route tokens directly to verified charitable wallets in real-time.</p>
+            </div>
+        </div>
+        <div class="mt-16 pt-8 border-t border-[#EAEAEA] max-w-5xl">
+            <p class="text-xl font-medium">Thank you. <span class="text-[#787774] font-normal">Ready for the Live Demo.</span></p>
+        </div>
+    </div>
+
+    <!-- Navigation Controls -->
+    <div class="hint">Use <kbd>←</kbd> <kbd>→</kbd> arrow keys to navigate</div>
+    
+    <div class="controls">
+        <button id="btn-prev" class="btn-nav" disabled>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <div class="slide-counter"><span id="current-slide">1</span> / <span id="total-slides">7</span></div>
+        <button id="btn-next" class="btn-nav">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const btnPrev = document.getElementById('btn-prev');
+        const btnNext = document.getElementById('btn-next');
+        const currentSlideEl = document.getElementById('current-slide');
+        let currentIdx = 0;
+
+        function updateSlides() {
+            slides.forEach((slide, idx) => {
+                slide.classList.remove('active', 'previous');
+                if (idx === currentIdx) {
+                    slide.classList.add('active');
+                } else if (idx < currentIdx) {
+                    slide.classList.add('previous');
+                }
+            });
+
+            btnPrev.disabled = currentIdx === 0;
+            btnNext.disabled = currentIdx === slides.length - 1;
+            currentSlideEl.textContent = currentIdx + 1;
+        }
+
+        btnNext.addEventListener('click', () => {
+            if (currentIdx < slides.length - 1) {
+                currentIdx++;
+                updateSlides();
+            }
+        });
+
+        btnPrev.addEventListener('click', () => {
+            if (currentIdx > 0) {
+                currentIdx--;
+                updateSlides();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space') {
+                if (currentIdx < slides.length - 1) { currentIdx++; updateSlides(); }
+            } else if (e.key === 'ArrowLeft') {
+                if (currentIdx > 0) { currentIdx--; updateSlides(); }
+            }
+        });
+    </script>
+</body>
+</html>
