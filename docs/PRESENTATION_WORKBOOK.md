@@ -52,7 +52,19 @@ This workbook is your script and guide for presenting your project. It is struct
 
 ---
 
-## 5. Application Process (End-to-end flow)
+## 5. Optimization Techniques (Smart Contract Efficiency)
+
+**Goal:** Show that you understand how to write efficient, production-ready Solidity code.
+
+- **"Because storing data on the Ethereum Virtual Machine (EVM) is expensive, we implemented several gas optimization techniques."**
+- **Data Minimization:** Instead of storing massive arrays of employee names and deduction amounts on the blockchain, we only store a tiny JSON payload containing the **Event Type** and **Payroll ID**. The heavy data stays in our Postgres database.
+- **Fixed-Size Types:** We strictly use highly efficient data types like `bytes32` for all cryptographic hashes and `uint64` for the block index, optimizing EVM storage slot usage.
+- **Native Hashing:** We utilize Ethereum's native `keccak256` hashing algorithm natively within the contract to calculate block hashes, ensuring maximum speed on the network.
+- **Off-chain Aggregation:** By aggregating all employees into a single "Payroll Finalized" event, the HR admin only pays **one gas fee per month** for the entire company, rather than a separate fee for each individual employee.
+
+---
+
+## 6. Application Process (End-to-end flow)
 
 **Goal:** Show evaluators *how* someone actually uses the platform — from first visit to verified receipt.
 
@@ -102,7 +114,7 @@ flowchart TD
 
 ---
 
-## 6. The Live Demo (Walking through the app)
+## 7. The Live Demo (Walking through the app)
 
 **Goal:** Show them the app working in real-time.
 
@@ -117,7 +129,7 @@ flowchart TD
 
 ---
 
-## 7. Conclusion & Future Work
+## 8. Conclusion & Future Work
 
 **Goal:** End strong and show you are thinking ahead.
 

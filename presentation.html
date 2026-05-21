@@ -216,8 +216,40 @@
         </div>
     </div>
 
-    <!-- Slide 6: Application Process -->
+    <!-- Slide 6: Optimization Techniques -->
     <div class="slide" id="slide-6">
+        <p class="text-sm font-semibold uppercase tracking-widest text-[#787774] mb-4">4b. Optimization Techniques</p>
+        <h2 class="text-5xl font-semibold mb-8">Smart Contract Efficiency</h2>
+        <div class="grid grid-cols-2 gap-8 max-w-5xl">
+            <div class="accent-box border-l-[#111111]">
+                <h3 class="text-2xl font-medium mb-3">Data Minimization</h3>
+                <p class="text-lg text-[#787774] leading-relaxed">
+                    Instead of storing full arrays of employee names and deduction amounts on the EVM (which would cost massive gas fees), we only store a tiny JSON payload containing the <strong>Event Type</strong> and <strong>Payroll ID</strong>.
+                </p>
+            </div>
+            <div class="accent-box border-l-[#111111]">
+                <h3 class="text-2xl font-medium mb-3">Fixed-Size Types</h3>
+                <p class="text-lg text-[#787774] leading-relaxed">
+                    The contract strictly uses highly efficient types like <code>bytes32</code> for all cryptographic hashes and <code>uint64</code> for the block index, optimizing EVM storage slot usage.
+                </p>
+            </div>
+            <div class="accent-box border-l-[#111111]">
+                <h3 class="text-2xl font-medium mb-3">Keccak256 Hashing</h3>
+                <p class="text-lg text-[#787774] leading-relaxed">
+                    We utilize Ethereum's native <code>keccak256</code> hashing algorithm to calculate block hashes natively within the contract, ensuring compatibility and maximum speed on the Sepolia network.
+                </p>
+            </div>
+            <div class="accent-box border-l-[#111111]">
+                <h3 class="text-2xl font-medium mb-3">Off-chain Aggregation</h3>
+                <p class="text-lg text-[#787774] leading-relaxed">
+                    By aggregating all employees into a single "Payroll Finalized" event, the HR admin only pays <strong>one gas fee per month</strong> for the entire company, rather than a separate fee per employee.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 7: Application Process -->
+    <div class="slide" id="slide-7">
         <p class="text-sm font-semibold uppercase tracking-widest text-[#787774] mb-4">5. Application Process</p>
         <h2 class="text-5xl font-semibold mb-8">How the app is used</h2>
         <div class="grid grid-cols-2 gap-10 max-w-6xl">
@@ -256,8 +288,8 @@
         </div>
     </div>
 
-    <!-- Slide 7: MetaMask Integration -->
-    <div class="slide" id="slide-7">
+    <!-- Slide 8: MetaMask Integration -->
+    <div class="slide" id="slide-8">
         <p class="text-sm font-semibold uppercase tracking-widest text-[#787774] mb-4">6. Web3 Integration</p>
         <h2 class="text-5xl font-semibold mb-8">MetaMask as a Digital Notary</h2>
         <div class="max-w-4xl">
@@ -273,8 +305,8 @@
         </div>
     </div>
 
-    <!-- Slide 8: Conclusion -->
-    <div class="slide" id="slide-8">
+    <!-- Slide 9: Conclusion -->
+    <div class="slide" id="slide-9">
         <p class="text-sm font-semibold uppercase tracking-widest text-[#787774] mb-4">7. Conclusion</p>
         <h2 class="text-5xl font-semibold mb-8">Looking Forward</h2>
         <div class="grid grid-cols-2 gap-12 max-w-5xl">
@@ -299,7 +331,7 @@
         <button id="btn-prev" class="btn-nav" disabled>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
         </button>
-        <div class="slide-counter"><span id="current-slide">1</span> / <span id="total-slides">8</span></div>
+        <div class="slide-counter"><span id="current-slide">1</span> / <span id="total-slides">9</span></div>
         <button id="btn-next" class="btn-nav">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
         </button>
