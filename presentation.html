@@ -198,20 +198,67 @@
         bytes payload;
     }
     
-    // Security: Only authorized HR wallet can write
     modifier onlyRegistrar() {
         if (msg.sender != registrar) revert Unauthorized();
         _;
     }
 
-    function append(bytes32 prevHash, bytes calldata payload) ...
+    function append(bytes32 prevHash, bytes calldata payload) external onlyRegistrar returns (uint64 index) {
+        bytes32 expectedPrev = _blocks.length == 0 ? bytes32(0) : _blocks[_blocks.length - 1].blockHash;
+        if (prevHash != expectedPrev) revert BadPrevHash(expectedPrev, prevHash);
+
+        bytes32 blockHash = keccak256(abi.encodePacked(prevHash, keccak256(payload)));
+        index = uint64(_blocks.length);
+        _blocks.push(AuditBlock({ index: index, prevHash: prevHash, blockHash: blockHash, payload: payload }));
+        emit AuditBlockAppended(index, prevHash, blockHash, payload);
+    }
 }</code></pre>
         </div>
     </div>
 
-    <!-- Slide 6: MetaMask Integration -->
+    <!-- Slide 6: Application Process -->
     <div class="slide" id="slide-6">
-        <p class="text-sm font-semibold uppercase tracking-widest text-[#787774] mb-4">5. Web3 Integration</p>
+        <p class="text-sm font-semibold uppercase tracking-widest text-[#787774] mb-4">5. Application Process</p>
+        <h2 class="text-5xl font-semibold mb-8">How the app is used</h2>
+        <div class="grid grid-cols-2 gap-10 max-w-6xl">
+            <div>
+                <h3 class="text-lg font-medium mb-4 text-[#346538]">HR Admin → /hr</h3>
+                <ol class="space-y-3 text-[15px] text-[#787774] list-decimal list-inside">
+                    <li><strong class="text-[#111111]">Enroll</strong> employee + monthly deduction</li>
+                    <li><strong class="text-[#111111]">Draft</strong> payroll period (e.g. May 2026)</li>
+                    <li><strong class="text-[#111111]">Sync Team</strong> → deduction lines</li>
+                    <li><strong class="text-[#111111]">Finalize Period</strong> → MetaMask on Sepolia</li>
+                    <li>Review <strong class="text-[#111111]">System Activity Log</strong></li>
+                </ol>
+            </div>
+            <div>
+                <h3 class="text-lg font-medium mb-4 text-[#9F2F2D]">Employee → /employee</h3>
+                <ol class="space-y-3 text-[15px] text-[#787774] list-decimal list-inside">
+                    <li>Open receipt portal <span class="text-[12px]">(no wallet)</span></li>
+                    <li>Enter work email → <strong class="text-[#111111]">View Records</strong></li>
+                    <li>See <strong class="text-[#111111]">verified</strong> deductions only</li>
+                </ol>
+                <div class="mt-6 rounded-lg border border-[#EAEAEA] bg-white p-4 text-[13px] text-[#787774]">
+                    <span class="font-medium text-[#111111]">Web2 until finalize.</span> Employees never sign transactions; HR’s one MetaMask step locks the period on-chain.
+                </div>
+            </div>
+        </div>
+        <div class="mt-8 flex flex-wrap items-center gap-2 max-w-6xl text-[12px] font-medium uppercase tracking-widest text-[#787774]">
+            <span class="rounded-full bg-[#EDF3EC] px-3 py-1">Enroll</span>
+            <span>→</span>
+            <span class="rounded-full bg-[#E1F3FE] px-3 py-1">Draft</span>
+            <span>→</span>
+            <span class="rounded-full bg-[#E1F3FE] px-3 py-1">Sync</span>
+            <span>→</span>
+            <span class="rounded-full bg-[#111111] text-white px-3 py-1">Finalize ⛓</span>
+            <span>→</span>
+            <span class="rounded-full bg-[#F7F6F3] px-3 py-1">Employee receipt</span>
+        </div>
+    </div>
+
+    <!-- Slide 7: MetaMask Integration -->
+    <div class="slide" id="slide-7">
+        <p class="text-sm font-semibold uppercase tracking-widest text-[#787774] mb-4">6. Web3 Integration</p>
         <h2 class="text-5xl font-semibold mb-8">MetaMask as a Digital Notary</h2>
         <div class="max-w-4xl">
             <p class="text-xl text-[#787774] leading-relaxed mb-8">
@@ -226,9 +273,9 @@
         </div>
     </div>
 
-    <!-- Slide 7: Conclusion -->
-    <div class="slide" id="slide-7">
-        <p class="text-sm font-semibold uppercase tracking-widest text-[#787774] mb-4">6. Conclusion</p>
+    <!-- Slide 8: Conclusion -->
+    <div class="slide" id="slide-8">
+        <p class="text-sm font-semibold uppercase tracking-widest text-[#787774] mb-4">7. Conclusion</p>
         <h2 class="text-5xl font-semibold mb-8">Looking Forward</h2>
         <div class="grid grid-cols-2 gap-12 max-w-5xl">
             <div>
@@ -252,7 +299,7 @@
         <button id="btn-prev" class="btn-nav" disabled>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
         </button>
-        <div class="slide-counter"><span id="current-slide">1</span> / <span id="total-slides">7</span></div>
+        <div class="slide-counter"><span id="current-slide">1</span> / <span id="total-slides">8</span></div>
         <button id="btn-next" class="btn-nav">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
         </button>
