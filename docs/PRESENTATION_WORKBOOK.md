@@ -48,6 +48,7 @@ This workbook is your script and guide for presenting your project. It is struct
 - **Hash-Linking:** Just like a real blockchain, every block we add to our contract must reference the hash of the *previous* block (`prevHash`). If an attacker tries to alter a payroll record from three months ago, the hashes won't match, and the chain breaks.
 - **Security (`onlyRegistrar`):** Not just anyone can add a block. We use a modifier called `onlyRegistrar`. When I deployed the contract, my HR wallet was set as the registrar. Only my specific wallet can successfully call the `append()` function.
 - **Execution:** Inside the `append()` function, the contract takes the `prevHash` and the new `payload`, runs them through `keccak256` (Ethereum's hashing algorithm), stores the new `blockHash`, and emits an event.
+- **Other Functions:** The contract also includes `blockCount()` and `getBlock()` for public transparency (anyone can read the chain), and `transferRegistrar()` just in case the HR department needs to rotate or change their official MetaMask wallet.
 
 ---
 

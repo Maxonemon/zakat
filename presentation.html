@@ -191,12 +191,10 @@
         <h2 class="text-5xl font-semibold mb-8">ZakatAuditLog.sol</h2>
         <div class="bg-[#F7F6F3] p-8 rounded-xl border border-[#EAEAEA] max-w-4xl font-mono text-sm leading-relaxed overflow-x-auto">
 <pre><code>contract ZakatAuditLog {
-    struct AuditBlock {
-        uint64 index;
-        bytes32 prevHash; // Links to previous record
-        bytes32 blockHash;
-        bytes payload;
-    }
+    struct AuditBlock { uint64 index; bytes32 prevHash; bytes32 blockHash; bytes payload; }
+    
+    AuditBlock[] private _blocks;
+    address public registrar;
     
     modifier onlyRegistrar() {
         if (msg.sender != registrar) revert Unauthorized();
@@ -212,6 +210,8 @@
         _blocks.push(AuditBlock({ index: index, prevHash: prevHash, blockHash: blockHash, payload: payload }));
         emit AuditBlockAppended(index, prevHash, blockHash, payload);
     }
+    
+    // Also includes: blockCount(), getBlock(idx), and transferRegistrar(next)
 }</code></pre>
         </div>
     </div>
