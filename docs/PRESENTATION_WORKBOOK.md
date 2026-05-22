@@ -52,19 +52,19 @@ This workbook is your script and guide for presenting your project. It is struct
 
 ---
 
-## 5. Optimization Techniques (Smart Contract Efficiency)
+## 4.1 Smart Contract Optimizations (Gas & Efficiency)
 
-**Goal:** Show that you understand how to write efficient, production-ready Solidity code.
+**Goal:** Show your evaluator that you understand advanced Solidity concepts and wrote efficient code.
 
-- **"Because storing data on the Ethereum Virtual Machine (EVM) is expensive, we implemented several gas optimization techniques."**
-- **Data Minimization:** Instead of storing massive arrays of employee names and deduction amounts on the blockchain, we only store a tiny JSON payload containing the **Event Type** and **Payroll ID**. The heavy data stays in our Postgres database.
-- **Fixed-Size Types:** We strictly use highly efficient data types like `bytes32` for all cryptographic hashes and `uint64` for the block index, optimizing EVM storage slot usage.
-- **Native Hashing:** We utilize Ethereum's native `keccak256` hashing algorithm natively within the contract to calculate block hashes, ensuring maximum speed on the network.
-- **Off-chain Aggregation:** By aggregating all employees into a single "Payroll Finalized" event, the HR admin only pays **one gas fee per month** for the entire company, rather than a separate fee for each individual employee.
+- **"To ensure our contract is production-ready, we implemented several key Solidity optimizations:"**
+- **1. Hashing Over Storage:** Storing data on Ethereum is incredibly expensive. Instead of saving arrays of employee data, we construct a JSON string off-chain, and only store the resulting 32-byte hash on-chain.
+- **2. Calldata Usage:** In the `append` function, the `payload` is passed as `calldata` rather than `memory`. This prevents Solidity from making an expensive copy of the data, saving gas every time a payroll is finalized.
+- **3. Custom Errors:** Instead of using traditional `require(..., "Error message")` which wastes gas storing long strings, we use Solidity v0.8 Custom Errors (like `error Unauthorized();`). This makes deploying and running the contract significantly cheaper.
+- **4. Struct Packing:** Inside `AuditBlock`, we use a `uint64` for the index rather than a full `uint256`. A `uint64` can still hold 18 quintillion records, but it takes up less storage space on the blockchain.
 
 ---
 
-## 6. Application Process (End-to-end flow)
+## 5. Application Process (End-to-end flow)
 
 **Goal:** Show evaluators *how* someone actually uses the platform — from first visit to verified receipt.
 
@@ -114,7 +114,7 @@ flowchart TD
 
 ---
 
-## 7. The Live Demo (Walking through the app)
+## 6. The Live Demo (Walking through the app)
 
 **Goal:** Show them the app working in real-time.
 
@@ -129,7 +129,7 @@ flowchart TD
 
 ---
 
-## 8. Conclusion & Future Work
+## 7. Conclusion & Future Work
 
 **Goal:** End strong and show you are thinking ahead.
 

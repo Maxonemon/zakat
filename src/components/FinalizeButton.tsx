@@ -33,6 +33,20 @@ export default function FinalizeButton({ payrollRunId, disabled }: Props) {
         return;
       }
 
+      // Request user to switch to Sepolia BEFORE doing anything else
+      try {
+        await window.ethereum.request({
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: '0xaa36a7' }], // 11155111 in hex
+        });
+      } catch (switchError) {
+        // This error code indicates that the chain has not been added to MetaMask.
+        console.error("Failed to switch to Sepolia:", switchError);
+        alert("Please switch your MetaMask network to Sepolia to continue.");
+        setLoading(false);
+        return;
+      }
+
       const client = createWalletClient({
         chain: sepolia,
         transport: custom(window.ethereum)

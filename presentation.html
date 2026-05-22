@@ -216,41 +216,33 @@
         </div>
     </div>
 
-    <!-- Slide 6: Optimization Techniques -->
+    <!-- Slide 6: Smart Contract Optimization -->
     <div class="slide" id="slide-6">
-        <p class="text-sm font-semibold uppercase tracking-widest text-[#787774] mb-4">4b. Optimization Techniques</p>
-        <h2 class="text-5xl font-semibold mb-8">Smart Contract Efficiency</h2>
+        <p class="text-sm font-semibold uppercase tracking-widest text-[#787774] mb-4">5. Contract Optimization</p>
+        <h2 class="text-5xl font-semibold mb-8">Gas & Storage Efficiency</h2>
         <div class="grid grid-cols-2 gap-8 max-w-5xl">
             <div class="accent-box border-l-[#111111]">
-                <h3 class="text-2xl font-medium mb-3">Data Minimization</h3>
-                <p class="text-lg text-[#787774] leading-relaxed">
-                    Instead of storing full arrays of employee names and deduction amounts on the EVM (which would cost massive gas fees), we only store a tiny JSON payload containing the <strong>Event Type</strong> and <strong>Payroll ID</strong>.
-                </p>
+                <h3 class="text-xl font-medium mb-3">1. Hashing Over Storage</h3>
+                <p class="text-lg text-[#787774] leading-relaxed">Instead of storing large raw JSON strings or entire employee arrays on-chain, we hash the payload off-chain and only store the 32-byte <code>keccak256</code> hash. This drastically reduces storage costs.</p>
             </div>
             <div class="accent-box border-l-[#111111]">
-                <h3 class="text-2xl font-medium mb-3">Fixed-Size Types</h3>
-                <p class="text-lg text-[#787774] leading-relaxed">
-                    The contract strictly uses highly efficient types like <code>bytes32</code> for all cryptographic hashes and <code>uint64</code> for the block index, optimizing EVM storage slot usage.
-                </p>
+                <h3 class="text-xl font-medium mb-3">2. Calldata Usage</h3>
+                <p class="text-lg text-[#787774] leading-relaxed">The <code>payload</code> argument in the <code>append</code> function uses <code>calldata</code> instead of <code>memory</code>, which avoids unnecessary copying and saves gas during execution.</p>
             </div>
             <div class="accent-box border-l-[#111111]">
-                <h3 class="text-2xl font-medium mb-3">Keccak256 Hashing</h3>
-                <p class="text-lg text-[#787774] leading-relaxed">
-                    We utilize Ethereum's native <code>keccak256</code> hashing algorithm to calculate block hashes natively within the contract, ensuring compatibility and maximum speed on the Sepolia network.
-                </p>
+                <h3 class="text-xl font-medium mb-3">3. Custom Errors</h3>
+                <p class="text-lg text-[#787774] leading-relaxed">We use Solidity custom errors (<code>error Unauthorized()</code>) instead of string-based <code>require()</code> statements. This reduces deployment size and runtime gas costs.</p>
             </div>
             <div class="accent-box border-l-[#111111]">
-                <h3 class="text-2xl font-medium mb-3">Off-chain Aggregation</h3>
-                <p class="text-lg text-[#787774] leading-relaxed">
-                    By aggregating all employees into a single "Payroll Finalized" event, the HR admin only pays <strong>one gas fee per month</strong> for the entire company, rather than a separate fee per employee.
-                </p>
+                <h3 class="text-xl font-medium mb-3">4. Struct Packing</h3>
+                <p class="text-lg text-[#787774] leading-relaxed">The <code>AuditBlock</code> struct uses <code>uint64</code> for the index (which is more than enough for millions of payrolls) alongside <code>bytes32</code> hashes, minimizing the storage slot footprint.</p>
             </div>
         </div>
     </div>
 
     <!-- Slide 7: Application Process -->
     <div class="slide" id="slide-7">
-        <p class="text-sm font-semibold uppercase tracking-widest text-[#787774] mb-4">5. Application Process</p>
+        <p class="text-sm font-semibold uppercase tracking-widest text-[#787774] mb-4">6. Application Process</p>
         <h2 class="text-5xl font-semibold mb-8">How the app is used</h2>
         <div class="grid grid-cols-2 gap-10 max-w-6xl">
             <div>
@@ -290,7 +282,7 @@
 
     <!-- Slide 8: MetaMask Integration -->
     <div class="slide" id="slide-8">
-        <p class="text-sm font-semibold uppercase tracking-widest text-[#787774] mb-4">6. Web3 Integration</p>
+        <p class="text-sm font-semibold uppercase tracking-widest text-[#787774] mb-4">7. Web3 Integration</p>
         <h2 class="text-5xl font-semibold mb-8">MetaMask as a Digital Notary</h2>
         <div class="max-w-4xl">
             <p class="text-xl text-[#787774] leading-relaxed mb-8">
@@ -307,7 +299,7 @@
 
     <!-- Slide 9: Conclusion -->
     <div class="slide" id="slide-9">
-        <p class="text-sm font-semibold uppercase tracking-widest text-[#787774] mb-4">7. Conclusion</p>
+        <p class="text-sm font-semibold uppercase tracking-widest text-[#787774] mb-4">8. Conclusion</p>
         <h2 class="text-5xl font-semibold mb-8">Looking Forward</h2>
         <div class="grid grid-cols-2 gap-12 max-w-5xl">
             <div>
